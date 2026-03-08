@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kính chúc Cô 8/3</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        .card-container {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 10;
+        }
+
+        .card-container:hover {
+            transform: scale(1.05);
+        }
+
+        .envelope {
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 3px solid #d4af37;
+            min-width: 320px;
+        }
+
+        .envelope h1 {
+            color: #d4af37;
+            margin: 10px 0 0 0;
+            font-size: 22px;
+        }
+
+        .message-content {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 650px;
+            width: 85%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.8s ease forwards;
+            z-index: 20;
+            border-top: 5px solid #d4af37;
+        }
+
+        .message-content h2 {
+            color: #c99824;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .message-content p {
+            color: #333;
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+    <div class="card-container" id="envelope" onclick="openCard()">
+        <div class="envelope">
+            <span style="font-size: 80px; display: block;">💐</span>
+            <h1>Có một bức thư gửi Cô...</h1>
+            <p style="color: #888; font-size: 14px; margin-top: 10px;">(Cô nhấn vào đây nhé)</p>
+        </div>
+    </div>
+
+    <div class="message-content" id="message">
+        <h2 id="greeting">🌸 Kính chúc Cô ngày 8/3! 🌸</h2>
+        <p id="bodyText">Nhân ngày Quốc tế Phụ nữ 8/3, em kính chúc cô luôn dồi dào sức khỏe, bình an và hạnh phúc. Cảm ơn cô không chỉ vì những bài giảng tâm huyết mà còn vì sự kiên nhẫn, quan tâm và những lời khuyên chân thành cô luôn dành cho chúng em. Được làm học trò của cô là một điều rất may mắn. Chúc cô luôn giữ mãi nụ cười rạng rỡ và ngọn lửa đam mê với nghề giáo. Một ngày 8/3 thật ấm áp và trọn vẹn cô nhé!</p>
+        <p style="font-weight: bold; color: #c99824; margin-top: 30px; font-size: 20px; text-align: center;">- Học trò của cô, Khoa -</p>
+    </div>
+
+    <script>
+        function openCard() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tenCo = urlParams.get('ten');
+
+            if (tenCo) {
+                document.getElementById('greeting').innerText = `🌸 Kính chúc ${tenCo} ngày 8/3! 🌸`;
+            }
+
+            document.getElementById('envelope').style.display = 'none';
+            document.getElementById('message').style.display = 'block';
+
+            var duration = 3 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+                var particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, colors: ['#d4af37', '#ffffff', '#ffd700'], origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, colors: ['#d4af37', '#ffffff', '#ffd700'], origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+    </script>
+</body>
+</html>
