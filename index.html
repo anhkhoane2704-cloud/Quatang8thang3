@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc mừng ngày 8/3 🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #ffe6ea; /* Màu hồng nhạt dễ chịu */
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Khung hiển thị chung */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+        }
+
+        /* Thẻ nội dung (Card) */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+            text-align: center;
+            max-width: 90%;
+            width: 450px;
+            z-index: 10;
+        }
+
+        /* Màn hình 1: Nhập tên */
+        #screen1 {
+            z-index: 2;
+        }
+
+        #screen1 h2 {
+            color: #ff69b4;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Quicksand', sans-serif;
+            outline: none;
+            transition: border-color 0.3s;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"]:focus {
+            border-color: #ff1493;
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            color: #d81b60;
+            font-weight: 600;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+        }
+
+        /* Màn hình 2: Lời chúc */
+        #screen2 {
+            z-index: 1;
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+        }
+
+        #screen2 h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #e91e63;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        #screen2 p.wish {
+            color: #555;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        #screen2 p.signature {
+            text-align: right;
+            font-weight: 600;
+            color: #e91e63;
+        }
+
+        /* Hiệu ứng hoa rơi */
+        .petal {
+            position: absolute;
+            top: -10vh;
+            font-size: 1.2rem;
+            user-select: none;
+            pointer-events: none;
+            z-index: 5;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="screen1" class="screen">
+            <div class="card">
+                <h2>Chào bạn, nhập tên của bạn vào đây nhé! 🌸</h2>
+                <input type="text" id="nameInput" placeholder="Tên của bạn là..." autocomplete="off">
+                <button onclick="showWish()">Mở Quà</button>
+            </div>
+        </div>
+
+        <div id="screen2" class="screen">
+            <div class="card">
+                <h1>8/3 Vui Vẻ, <span id="displayName"></span>! 🌷</h1>
+                <p class="wish">
+                    Nhân ngày Quốc tế Phụ nữ, chúc <span class="namePlace"></span> có một ngày thật trọn vẹn và nhiều niềm vui. Mong rằng không chỉ hôm nay, mà những ngày sau này <span class="namePlace"></span> vẫn luôn giữ được sự rạng rỡ, tự tin và bình an. Hãy cứ tỏa sáng theo cách riêng của mình nhé!
+                </p>
+                <p class="signature">- Từ Khoa -</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showWish() {
+            const inputField = document.getElementById('nameInput');
+            let name = inputField.value.trim();
+
+            if (name === "") {
+                alert("Bạn phải nhập tên thì mới có quà chứ!");
+                inputField.focus();
+                return;
+            }
+
+            // Gắn tên vào các vị trí trong lời chúc
+            document.getElementById('displayName').innerText = name;
+            const namePlaces = document.querySelectorAll('.namePlace');
+            namePlaces.forEach(el => {
+                el.innerText = name;
+            });
+
+            // Hiệu ứng chuyển cảnh
+            const screen1 = document.getElementById('screen1');
+            const screen2 = document.getElementById('screen2');
+
+            screen1.style.opacity = '0';
+            screen1.style.transform = 'scale(1.1)';
+            
+            setTimeout(() => {
+                screen1.style.display = 'none';
+                screen2.style.pointerEvents = 'auto';
+                screen2.style.opacity = '1';
+                screen2.style.transform = 'scale(1)';
+                
+                // Kích hoạt hiệu ứng hoa rơi sau khi chuyển cảnh
+                createPetals();
+            }, 800);
+        }
+
+        // Bắt sự kiện nhấn phím Enter để tiện lợi hơn
+        document.getElementById('nameInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                showWish();
+            }
+        });
+
+        // Hàm tạo cánh hoa đào rơi ngẫu nhiên
+        function createPetals() {
+            const petalCount = 35;
+            for (let i = 0; i < petalCount; i++) {
+                let petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.innerHTML = '🌸';
+                
+                // Thuộc tính ngẫu nhiên
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = (Math.random() * 3 + 3) + 's'; // Rơi từ 3-6s
+                petal.style.animationDelay = Math.random() * 2 + 's';
+                petal.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                petal.style.opacity = Math.random() * 0.5 + 0.5;
+                
+                document.body.appendChild(petal);
+            }
+        }
+    </script>
+</body>
+</html>
